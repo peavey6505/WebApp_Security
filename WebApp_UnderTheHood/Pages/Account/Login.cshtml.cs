@@ -22,12 +22,15 @@ namespace WebApp_UnderTheHood.Pages.Account
             }
 
             // verify the credential
-            if(Credential.UserName == "admin" && Credential.Password == "password")
+            if(Credential.UserName == "asd" && Credential.Password == "asd")
             {
                 // creating security context 
-                var claims = new List<Claim>() { 
-                    new Claim(ClaimTypes.Name, "admin"), 
-                    new Claim(ClaimTypes.Email, "admin@asd.asd") 
+                var claims = new List<Claim>() {
+                    new Claim(ClaimTypes.Name, "admin"),
+                    new Claim(ClaimTypes.Email, "admin@asd.asd"),
+                    new Claim("Department", "HR"), //Custom claim for authorization policy
+                    new Claim("Admin", "true"),
+                    new Claim("Manager", "true")
                 };
 
                 var identity = new ClaimsIdentity(claims, "MyCookieAuth"); // cookie auth, typical for login page
