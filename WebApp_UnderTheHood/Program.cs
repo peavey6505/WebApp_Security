@@ -3,11 +3,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddAuthentication().AddCookie("MyCookieAuth", options =>
-{
-    options.Cookie.Name = "MyCookieAuth";
-});
+builder.Services
+    .AddAuthentication()
+    .AddCookie("MyCookieAuth", options =>
+        {
+            options.Cookie.Name = "MyCookieAuth";
+        });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Admin"));
+    options.AddPolicy("MustBelongToHRDepartment", policy => policy.RequireClaim("Department", "HR"));
+    options.AddPolicy("HRManagerOnly", policy => policy
+        .RequireClaim("Department", "HR")
+        .RequireClaim("Manager")); 
+});
 
 var app = builder.Build();
 
@@ -24,6 +34,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); // translates authentication data (e.g. cookie / JWT) into HttpContext.User
 app.UseAuthorization();
 
 app.MapRazorPages();
