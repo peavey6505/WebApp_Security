@@ -1,3 +1,5 @@
+using WebApp_UnderTheHood.Security;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,9 +7,9 @@ builder.Services.AddRazorPages();
 
 builder.Services
     .AddAuthentication()
-    .AddCookie("MyCookieAuth", options =>
+    .AddCookie(AuthSchemeNames.Cookie, options =>
         {
-            options.Cookie.Name = "MyCookieAuth";
+            options.Cookie.Name = AuthSchemeNames.Cookie;
         });
 
 builder.Services.AddAuthorization(options =>

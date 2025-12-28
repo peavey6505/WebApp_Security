@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Security.Claims;
+using WebApp_UnderTheHood.Security;
 
 namespace WebApp_UnderTheHood.Pages.Account
 {
@@ -33,16 +34,16 @@ namespace WebApp_UnderTheHood.Pages.Account
                     new Claim("Manager", "true")
                 };
 
-                var identity = new ClaimsIdentity(claims, "MyCookieAuth"); // cookie auth, typical for login page
+                var identity = new ClaimsIdentity(claims, AuthSchemeNames.Cookie); // cookie auth, typical for login page
 
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
 
 
-                //create encrypted cookie with user claims
+                // create encrypted cookie with user claims
                 // cookie goes to browser
                 // with every next req browser sends it back
                 // .net core knows that user is already logged in with this cookie
-                await HttpContext.SignInAsync("MyCookieAuth", claimsPrincipal);
+                await HttpContext.SignInAsync(AuthSchemeNames.Cookie, claimsPrincipal);
 
                 return RedirectToPage("/Index");
             }
