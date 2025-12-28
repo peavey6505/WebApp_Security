@@ -31,7 +31,8 @@ namespace WebApp_UnderTheHood.Pages.Account
                     new Claim(ClaimTypes.Email, "admin@asd.asd"),
                     new Claim("Department", "HR"), //Custom claim for authorization policy
                     new Claim("Admin", "true"),
-                    new Claim("Manager", "true")
+                    new Claim("Manager", "true"),
+                    new Claim("EmploymentDate", "2026-05-05")
                 };
 
                 var identity = new ClaimsIdentity(claims, AuthSchemeNames.Cookie); // cookie auth, typical for login page
