@@ -12,6 +12,7 @@ builder.Services
     .AddCookie(AuthSchemeNames.Cookie, options =>
         {
             options.Cookie.Name = AuthSchemeNames.Cookie;
+            options.ExpireTimeSpan = TimeSpan.FromSeconds(20);
         });
 
 builder.Services.AddAuthorization(options =>

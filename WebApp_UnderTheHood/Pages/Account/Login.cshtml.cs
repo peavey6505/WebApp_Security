@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Security.Claims;
+using System.Xml.Linq;
 using WebApp_UnderTheHood.Security;
 
 namespace WebApp_UnderTheHood.Pages.Account
@@ -40,11 +41,17 @@ namespace WebApp_UnderTheHood.Pages.Account
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
 
 
+
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = Credential.RemeberMe
+                };
+
                 // create encrypted cookie with user claims
                 // cookie goes to browser
                 // with every next req browser sends it back
                 // .net core knows that user is already logged in with this cookie
-                await HttpContext.SignInAsync(AuthSchemeNames.Cookie, claimsPrincipal);
+                await HttpContext.SignInAsync(AuthSchemeNames.Cookie, claimsPrincipal, authProperties);
 
                 return RedirectToPage("/Index");
             }
@@ -63,5 +70,8 @@ namespace WebApp_UnderTheHood.Pages.Account
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
+
+        [Display(Name = "Remember Me")] 
+        public bool RemeberMe { get; set; }
     }
 }
