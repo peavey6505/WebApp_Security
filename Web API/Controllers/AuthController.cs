@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration.EnvironmentVariables;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using WebApp_UnderTheHood.Security;
+using WebApp_UnderTheHood.Authorization;
 
 namespace Web_API.Controllers
 {
@@ -47,7 +45,7 @@ namespace Web_API.Controllers
 
                 return Ok(new
                 {
-                    acces_token = CreateToken(claims, expiresAt),
+                    access_token = CreateToken(claims, expiresAt),
                     expires_at = expiresAt,
                 });
 
@@ -86,9 +84,4 @@ namespace Web_API.Controllers
         }
     }
 
-    public class Credential
-    {
-        public string Username { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
 }
