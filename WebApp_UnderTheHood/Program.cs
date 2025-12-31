@@ -27,6 +27,19 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddSingleton<IAuthorizationHandler, HRManagerProbationRequirementHandler>();
 
+builder.Services.AddHttpClient("OurWebAPI", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7203");
+});
+
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true; // Mitigate XSS, important!!
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,6 +57,8 @@ app.UseRouting();
 
 app.UseAuthentication(); // translates authentication data (e.g. cookie / JWT) into HttpContext.User
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 

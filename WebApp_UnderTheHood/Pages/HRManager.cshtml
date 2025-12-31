@@ -6,3 +6,13 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to Human Resource Manager</h1>
 </div>
+
+@if (Model.weatherForecastItems is not null){
+    <ul>
+        @foreach (var item in Model.weatherForecastItems)
+        {
+            <li>@item.Date.ToShortDateString() - @item.TemperatureC - C @item.Summary</li>
+        }
+    </ul>
+   
+}
