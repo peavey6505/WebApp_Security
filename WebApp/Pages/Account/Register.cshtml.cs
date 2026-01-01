@@ -39,8 +39,10 @@ namespace WebApp.Pages
             var result = await _userManager.CreateAsync(user, RegisterViewModel.Password);
             if(result.Succeeded)
             {
-                // optionally assign roles or claims
-                return RedirectToPage("/Account/Login");
+                var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                return Redirect(Url.PageLink(pageName: "/Account/ConfirmEmail",
+                    values: new { userId = user.Id, token = confirmationToken }) ?? string.Empty);
+
             }
             else
             {
