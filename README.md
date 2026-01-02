@@ -5,11 +5,11 @@ This repository contains a learning-focused ASP.NET solution created as part of 
 **Key Topics**
 
 - Cookie vs JWT authentication
-- Claims, identities, and principals
+- Claims, identities and principals
 - Policy-based authorization
 - ASP.NET Identity internals
 - Manual vs framework-based auth
-- JWT Bearer tokens
+- Multi-Factor Authentication
 
 
 
@@ -47,3 +47,5 @@ Covers:
 - Claims-based authentication
 - Cookie-based login for browser access
 - JWT authentication via HttpClient
+- 2FA with email
+- 2FA manual / QR codes authenticator setup
