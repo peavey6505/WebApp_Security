@@ -37,7 +37,7 @@ namespace WebApp.Pages.Account
             {
                 if(result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("/Account/LoginTwoFactor", new { Credential.Email, Credential.RemeberMe });
+                    return RedirectToPage("/Account/LoginTwoFactorWithAuthenticator", new { Credential.RemeberMe });
                 }
 
                 if (result.IsLockedOut)
